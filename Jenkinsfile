@@ -32,9 +32,10 @@ pipeline {
 
         stage("Sonarqube Scan") {
             steps {
-                withSonarQubeEnv(installationName: 'sq1'){
-                    sh "mvn sonar:sonar"}
-            }
+                script {
+                    withSonarQubeEnv(installationName: 'sq1'){
+                        sh "mvn sonar:sonar"}
+            }}
         }
     }
 }
