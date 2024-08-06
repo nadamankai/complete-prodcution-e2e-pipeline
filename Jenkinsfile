@@ -32,10 +32,10 @@ pipeline {
 
         stage("Sonarqube Analysis") {
             steps {
-                script{
-                    withSonarQubeEnv(credentialsId: "jenkins-sonarqube-token") {
-                                        sh "mvn sonar:sonar"
-                                    }
+                script {
+                    withSonarQubeEnv('SonarQubeServer') {
+                        sh "mvn sonar:sonar -Dsonar.host.url=http://localhost:9000"
+                    }
                 }
             }
         }
