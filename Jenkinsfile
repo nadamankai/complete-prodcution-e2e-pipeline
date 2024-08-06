@@ -33,15 +33,9 @@ pipeline {
         stage("Sonarqube Analysis") {
             steps {
                 script{
-                    def sonarQubeUrl = "http://localhost:9000" // Replace with your SonarQube server URL if different
-                                        def sonarQubePing = sh(script: "curl -s -o /dev/null -w '%{http_code}' $sonarQubeUrl", returnStdout: true)
-                                        if (sonarQubePing != "200") {
-                                            error "SonarQube server is not reachable: ${sonarQubePing}"
-                                        }
-
-                                        withSonarQubeEnv(credentialsId: "jenkins-sonarqube-token") {
-                                            sh 'mvn clean package sonar:sonar'
-                                        }
+                    withSonarQubeEnv(credentialsId: "jenkins-sonarqube-token") {
+                                      sh 'mvn clean package sonar:sonar'
+                                    }
                 }
             }
         }
