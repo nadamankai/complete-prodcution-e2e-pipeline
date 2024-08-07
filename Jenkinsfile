@@ -39,7 +39,7 @@ pipeline {
                 stage("Quality Gate") {
                             steps {
                                 script {
-                                    waitForQualityGate abortPipline : false , installationName: 'sq1'
+                                    waitForQualityGate abortPipline : false , credentialsId: 'jenkins-sonarqube'
                             }}
                         }
     }
