@@ -37,5 +37,11 @@ pipeline {
                         sh "mvn sonar:sonar"}
             }}
         }
+        stage("Quality Gate") {
+                    steps {
+                        script {
+                            waitForQualityGate abortPipline : false , installationName: 'sq1'
+                    }}
+                }
     }
 }
