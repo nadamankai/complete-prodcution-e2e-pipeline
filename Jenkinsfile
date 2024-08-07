@@ -4,6 +4,14 @@ pipeline {
         jdk 'Java17'
         maven 'Maven3'
     }
+    environment {
+       APP_NAME= "complete_production-e2e-pipline"
+       RELEASE = "1.0.0"
+       DOCKER_USER ="nadamankai"
+       DOCKER_PASS = 'dockerhub'
+       IMAGE_NAME = `${DOCKER_USER}/${APP_NAME}`
+       IMAGE_TAG = `${RELEASE}-${BUILD_NUMBER}`
+    }
 
     stages {
         stage("Cleanup Workspace") {
@@ -30,18 +38,6 @@ pipeline {
             }
         }
 
-        stage("Sonarqube Scan") {
-            steps {
-                script {
-                    withSonarQubeEnv(installationName: 'sq1') {
-                        sh "mvn sonar:sonar"}
-            }}
-        }
-        stage("Quality Gate") {
-                    steps {
-                        script {
-                            waitForQualityGate abortPipline : false , installationName: 'sq1'
-                    }}
-                }
+
     }
 }
