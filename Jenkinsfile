@@ -3,6 +3,7 @@ pipeline {
     tools {
         jdk 'Java17'
         maven 'Maven3'
+        docker 'docker'
     }
     environment {
             APP_NAME = "complete-prodcution-e2e-pipeline"
