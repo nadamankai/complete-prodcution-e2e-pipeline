@@ -3,6 +3,7 @@ pipeline {
     tools {
         jdk 'Java17'
         maven 'Maven3'
+        docker 'docker'
     }
     environment {
             APP_NAME = "complete-prodcution-e2e-pipeline"
@@ -15,10 +16,7 @@ pipeline {
         }
 
     stages {
-       stage('Initialize'){
-            def dockerHome = tool 'docker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
+
         stage("Cleanup Workspace") {
             steps {
                 cleanWs()
