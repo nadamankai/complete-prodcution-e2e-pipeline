@@ -41,19 +41,16 @@ pipeline {
         }
 
 
-                            stage("Build & push docker image")     {
+       stage('Check Docker Connectivity') {
+                   steps {
+                       script {
+                           // Check Docker version
+                           sh 'docker --version'
 
-                                   steps {
-                                      script {
-                                         docker.withRegistry('',DOCKER_PASS) {
-                                             docker_image = docker.build "${IMAGE_NAME}"
-                                         }
-                                         docker.withRegistry('',DOCKER_PASS) {
-                                              docker_image.push("${IMAGE_TAG}")
-                                              docker_image.push('latest')
-                                                          }
-                                      }
-                                   }
-                                }
+                           // List running containers (should return an empty list if none are running)
+                           sh 'docker ps'
+                       }
+                   }
+               }
     }
 }
